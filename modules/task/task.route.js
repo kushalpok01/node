@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('./task.controller');
+const tcontroller = require('./task.controller');
 
-router.get('',controller.getAllDatas );
-router.get('/status/:status',controller.getDataByStatus );
-router.get('/:id',controller.getDataById);
-router.post('', controller.createData);
-router.put('/:id', controller.updateData);
-router.delete('/:id', controller.deleteData);
+router.get('',tcontroller.getAllDatas );
+router.get('/status/:status',tcontroller.getDataByStatus );
+router.get('/id/:id',tcontroller.getDataById);
+router.get('/date/:createdAt', tcontroller.getDataByCreatedDate);
+
+router.get('/future', tcontroller.getFutureData);
+
+
+router.post('', tcontroller.createData);
+router.put('/:id', tcontroller.updateData);
+router.delete('/:id', tcontroller.deleteData);
 
 module.exports = router;
