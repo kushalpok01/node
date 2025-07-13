@@ -8,7 +8,7 @@ router.get('/id/:id',tcontroller.getDataById);
 router.get('/date/:createdAt', tcontroller.getDataByCreatedDate);
 
 router.get('/future', tcontroller.getFutureData);
-
+router.get('/userstatus/:status', tcontroller.getDataByUserStatus);
 
 router.post('', tcontroller.createData);
 router.put('/:id', tcontroller.updateData);

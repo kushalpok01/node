@@ -1,25 +1,60 @@
 const TASKS = require('../../utils/mock/task.constant');
+const USERS = require('../../utils/mock/user.constant');
 
-const getAllDatas = (req, res)=>{
+const getAllDatas = (req, res) => {
     // return res.send("<h1> App is running </h1>")
     return res.json({
         data: TASKS,
-        message:'Data retrieved',
+        message: 'Data retrieved',
         status: 200
         // 500, 400, 401, 403, 200,201
     });
 };
 
-const getDataByStatus = (req,res)=>{
+const getDataByStatus = (req, res) => {
     return res.json({
-        data:TASKS.filter(v=>v.status === req.params.status),
-        message:'Data retrieved successfully',
+        data: TASKS.filter(v => v.status === req.params.status),
+        message: 'Data retrieved successfully',
         status: 200
     });
 }
-const getDataByCreatedDate =(req,res)=>
-{
- const dateParam = req.params.createdAt; // already a string like "2001-04-01"
+
+
+
+
+const getDataByUserStatus = (req, res) => {
+    const { status } = req.params;
+
+    // 1. Find all users with the given status
+    const matchingUserIds = USERS
+        .filter(user => user.status === status)
+        .map(user => user.id);
+
+    // 2. Find all tasks created by those users
+    const filteredTasks = TASKS.filter(task => matchingUserIds.includes(task.userId));
+
+    return res.json({
+        data: filteredTasks,
+        message: 'Tasks filtered by user status retrieved successfully',
+        status: 200
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getDataByCreatedDate = (req, res) => {
+    const dateParam = req.params.createdAt; // already a string like "2001-04-01"
     const task = TASKS.filter(task => task.createdAt === dateParam);
 
     if (task.length > 0) {
@@ -70,53 +105,50 @@ const getFutureData = (req, res) => {
 
 
 
-const getDataById = (req, res)=>{
-    const task =TASKS.find(v=> v.id === +req.params.id);
+const getDataById = (req, res) => {
+    const task = TASKS.find(v => v.id === +req.params.id);
 
-    if(task){
-    return res.json({
-        data: TASKS.find(v=> v.id === +req.params.id),
-        message:'Data retrieved',
-        status: 200
-    });
-    }else{
+    if (task) {
         return res.json({
-            message:'Data not found',
+            data: TASKS.find(v => v.id === +req.params.id),
+            message: 'Data retrieved',
+            status: 200
+        });
+    } else {
+        return res.json({
+            message: 'Data not found',
             status: 420
         })
     }
 }
 
-const createData = (req,res) => {
+const createData = (req, res) => {
     return res.json(req.body);
 }
 
-const updateData = (req,res) => {
+const updateData = (req, res) => {
     return res.json({
         data: req.body,
         id: req.params.id,
-        message:'You want me to update this'
+        message: 'You want me to update this'
     });
 }
 
-const deleteData = (req,res) => {
+const deleteData = (req, res) => {
     return res.json({
         id: req.params.id,
-        message:'You want me to delete this'
+        message: 'You want me to delete this'
     });
 }
 
-module.exports={
+module.exports = {
     getAllDatas,
     getDataById,
     createData,
     updateData,
     deleteData,
     getDataByStatus,
-  getDataByCreatedDate,
-  getFutureData,
-    // getDataByUserStatus,
-    // getUsersByAge,
-    // getDataByDate,
-    // getDataBy,
+    getDataByCreatedDate,
+    getFutureData,
+    getDataByUserStatus,
 }

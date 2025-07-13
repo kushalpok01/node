@@ -10,8 +10,6 @@ const USERS = [
     {id: 9, name: "Khem", dob: "2014-10-28", status: 'deleted',  gender: "male", createdAt: '2025-6-4'},
     {id: 10, name: "Kham", dob: "2014-10-28", status: 'deleted',  gender: "male", createdAt: '2025-6-4'},
 
-
-
 ];
 
 module.exports = USERS;

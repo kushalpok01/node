@@ -1,42 +1,42 @@
 const USERS = require('../../utils/mock/user.constant');
 
-const getAllUsers = (req, res)=>{
+const getAllUsers = (req, res) => {
     // return res.send("<h1> App is running </h1>")
     return res.json({
         Users: USERS,
-        message:'Users retrieved',
+        message: 'Users retrieved',
         status: 200
         // 500, 400, 401, 403, 200,201
     });
 };
 
-const getUsersByStatus = (req,res)=>{
+const getUsersByStatus = (req, res) => {
     return res.json({
-        Users: USERS.filter(v=>v.status === req.params.status),
-        message:'Users retrieved successfully',
+        Users: USERS.filter(v => v.status === req.params.status),
+        message: 'Users retrieved successfully',
         status: 200
     });
 }
 
 
-const getUsersById = (req, res)=>{
-    const user =USERS.find(v=> v.id === +req.params.id);
+const getUsersById = (req, res) => {
+    const user = USERS.find(v => v.id === +req.params.id);
 
-    if(user){
-    return res.json({
-        Users: USERS.find(v=> v.id === +req.params.id),
-        message:'Users retrieved',
-        status: 200
-    });
-    }else{
+    if (user) {
         return res.json({
-            message:'no any user that has the id',
+            Users: USERS.find(v => v.id === +req.params.id),
+            message: 'Users retrieved',
+            status: 200
+        });
+    } else {
+        return res.json({
+            message: 'no any user that has the id',
             status: 420
         })
     }
 }
-const getUsersByDob = (req, res)=>{
- const dobParam = req.params.dob; // already a string like "2001-04-01"
+const getUsersByDob = (req, res) => {
+    const dobParam = req.params.dob; // already a string like "2001-04-01"
     const user = USERS.filter(user => user.dob === dobParam);
 
     if (user.length > 0) {
@@ -80,8 +80,8 @@ const getUsersUnder18 = (req, res) => {
     }
 };
 
-const getUsersByGender = (req,res) =>{
-const genderParam = req.params.gender; // already a string like "2001-04-01"
+const getUsersByGender = (req, res) => {
+    const genderParam = req.params.gender; // already a string like "2001-04-01"
     const user = USERS.filter(user => user.gender === genderParam);
 
     if (user.length > 0) {
@@ -102,29 +102,29 @@ const genderParam = req.params.gender; // already a string like "2001-04-01"
 
 
 
-const createUsers = (req,res) => {
+const createUsers = (req, res) => {
     return res.json(req.body);
 }
 
-const updateUsers = (req,res) => {
+const updateUsers = (req, res) => {
     return res.json({
         Users: req.body,
         id: req.params.id,
-        message:'You want me to update this'
+        message: 'You want me to update this'
     });
 }
 
-const deleteUsers = (req,res) => {
+const deleteUsers = (req, res) => {
     return res.json({
         id: req.params.id,
-        message:'You want me to delete this'
+        message: 'You want me to delete this'
     });
 }
 
-module.exports={
+module.exports = {
     getAllUsers,
     getUsersById,
-   createUsers,
+    createUsers,
     updateUsers,
     deleteUsers,
     getUsersByStatus,

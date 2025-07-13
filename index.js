@@ -12,13 +12,26 @@ app.use('/task',taskRoutes);
 const userRoutes= require('./modules/user/user.route');
 app.use('/user', userRoutes);
 
+  
+// app.get('/',(req,res)=>{
+//     return res.send("<h1> App is running </h1>"
+//     )
+// });
 
-
-
-
-app.get('/',(req,res)=>{
-    return res.send("<h1> App is running </h1>")
+app.get("/", (req, res) => {
+  res.send(`
+    <html>
+      <body>
+        <h1>App is running</h1>
+        <button onclick="window.location.href='/task'">Go to Task</button>
+        <button onclick="window.location.href='/user'">Go to User</button>
+      </body>
+    </html>
+  `);
 });
+
+
+
 
 
 app.listen(PORT, ()=>{
